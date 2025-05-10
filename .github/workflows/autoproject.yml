@@ -53,17 +53,6 @@ jobs:
 
           echo "Fetching project ID..."
           echo $(gh api graphql -f query='
-            query($org: String!) {
-                organization(login: $org){
-                    projectsV2(first: 20) {
-                      nodes {
-                        id
-                        title
-                      }
-                    }
-                }
-              } ' -f org=$ORG)
-          gh api graphql -f query='
             query($org: String!, $number: Int!) {
                 organization(login: $org){
                     projectV2(number: $number) {
@@ -92,7 +81,7 @@ jobs:
                         }
                     }
                 }
-              } ' -f org=$ORG -F number=$PROJECT_NUMBER --jq '.data.user.projectV2' | tee project_data.json
+              } ' -f org=$ORG -F number=$PROJECT_NUMBER --jq '.data.user.projectV2' | tee project_data.json)
 
           PROJECT_ID=$(jq -r '.id' project_data.json)
           STATUS_FIELD_ID=$(jq -r '.fields.nodes[] | select(.name=="Status") | .id' project_data.json)
