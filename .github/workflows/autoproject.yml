@@ -81,9 +81,8 @@ jobs:
                         }
                     }
                 }
-              } ' -f org=$ORG -F number=$PROJECT_NUMBER --jq '.data.user.projectV2' | tee project_data.json
+              } ' -f org=$ORG -F number=$PROJECT_NUMBER --jq '.data.organization.projectV2' | tee project_data.json
 
-          echo $(cat project_data.json)
           PROJECT_ID=$(jq -r '.id' project_data.json)
           STATUS_FIELD_ID=$(jq -r '.fields.nodes[] | select(.name=="Status") | .id' project_data.json)
           TODO_OPTION_ID=$(jq -r '.fields.nodes[] | select(.name=="Status") | .options[] | select(.name=="Todo") | .id' project_data.json)
