@@ -125,7 +125,7 @@ jobs:
 
           # Set Status to Todo
           gh api graphql -f query='
-            mutation($project: ID!, $item: ID!, $field: ID!, $option: ID!) {
+            mutation($project: ID!, $item: ID!, $field: ID!, $option: String!) {
               updateProjectV2ItemFieldValue(input: {
                 projectId: $project,
                 itemId: $item,
@@ -142,7 +142,7 @@ jobs:
 
           # Set Sprint-Iteration to current
           gh api graphql -f query='
-            mutation($project: ID!, $item: ID!, $field: ID!, $iteration: ID!) {
+            mutation($project: ID!, $item: ID!, $field: ID!, $iteration: String!) {
               updateProjectV2ItemFieldValue(input: {
                 projectId: $project,
                 itemId: $item,
